@@ -1,0 +1,29 @@
+<aside class="overflow-y-auto relative h-full hidden lg:inline-block w-20p">
+  <div class="h-full">
+    <div class="relative text-txtSecondary dark:text-dark-txtSecondary w-80 p-5">
+      <button type="submit" class="absolute ml-4 mt-3 mr-4 bx bx-search bx-sm mb-1"></button>
+      <input type="search" name="search" placeholder="Search" class="ml-2 bg-surface dark:bg-dark-surface mt-1 h-10 px-10 pr-5 w-full rounded-full text-sm focus:outline-none rounded border-0"/>
+    </div>
+
+    <!--people suggetion to follow section-->
+    <div class="max-w-sm bg-surface dark:bg-dark-surface shadow rounded-lg overflow-hidden m-4">
+      <div class="flex">
+        <div class="flex-1 m-2">
+          <h2 class="px-4 py-2 text-xl font-semibold text-txtPrimary dark:text-dark-txtPrimary">People You May Like</h2>
+        </div>
+      </div>
+      <hr class="dark:border-dark-onSurface" />
+
+			<%= turbo_frame_tag "result", src: users_path(limit: 4), class: "divide-y divide-windows dark:divide-dark-windows", loading: :lazy do %>
+				<i class="bx bx-md bx-rotate-right bx-spin"></i>        
+			<% end %>
+
+      <!--show more-->
+      <div class="flex">
+        <div class="flex-1 p-4">
+          <%= link_to "Show more", users_path, class: "font-bold px-4 ml-2 w-48 text-link dark:text-dark-link" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</aside>

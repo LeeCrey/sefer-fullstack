@@ -1,0 +1,12 @@
+<aside class="overflow-y-auto relative h-full hidden lg:inline-block w-side">
+  <div class="bg-surface dark:bg-dark-surface p-4">
+    <div class="flex flex-col items-center">
+      <p class="font-semibold text-xl text-txtPrimary dark:text-dark-txtPrimary py-4"><%= chat.title %></p>
+      <div class="h-64 w-64">
+        <%= image_tag chat.cover, class: "object-cover rounded-xl h-full w-full", alt: "Chat cover" %>
+      </div>
+      <p class="font-light py-4 text-txtPrimary dark:text-dark-txtPrimary"><%= chat.created %></p>
+      <p class="text-txtSecondary dark:text-dark-txtSecondary"><%= @chat.description %></p>
+    </div>
+  </div>
+</aside>

@@ -1,0 +1,134 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+
+
+* {
+  outline: none;
+  box-sizing: border-box;
+}
+
+*:focus {
+  outline: none;
+}
+
+/* required field */
+label.required::after {
+  content: " *";
+  display: inline-flex;
+  padding: 4px;
+}
+
+/* registration */
+.correct {
+  color: green;
+  -webkit-animation: flashing 1.5s infinite linear;
+  animation: flashing 1.5s forwards linear;
+}
+
+.correct::before {
+  content: "\ea41";
+}
+
+.incorrect {
+  color: red;
+  -webkit-animation: tada 1.5s ease infinite;
+  animation: tada 1.5s ease infinite;
+}
+
+.incorrect::before {
+  content: "\ec8d";
+}
+
+.sidebar {
+  transform: translateX(-100%);
+  transition: 0.7s ease;
+}
+
+/* .app {
+    transition: 0.7s ease;
+  }
+
+  #sidebar_menu:checked ~ div > div:last-of-type {
+    overflow: hidden;
+    transform: translateX(0);
+    transition: transform 0.7s ease;
+  }
+  
+  #sidebar_menu:checked ~ div > div:first-of-type  label::before {
+    content: "\ec8d";
+  }
+  
+  #sidebar_menu:checked ~ div > div:first-of-type {
+    transform: translateX(93%);
+    transition: 0.7s ease;
+  } */
+
+/* .theme:checked + label > span {
+  transform: translateX(22px);
+  transition: 0.5s ease;
+} */
+
+/* SIDE */
+
+/* .main-container {
+  padding: 0;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transition: left .5s ease;
+} */
+.move-container {
+  left: 100%;
+  margin-left: 4px;
+  transition: left 0.5s ease;
+}
+
+.side-bar {
+  transition: width 0.5s ease;
+}
+
+.open-side-bar {
+  width: 100%;
+  transition: width 0.5s ease;
+}
+
+.s-chat:first-of-type {
+  margin-top: 4px;
+}
+
+.sefer-user:last-of-type > hr {
+  visibility: hidden;
+}
+
+
+/* Login */
+/* GLOABAL */
+/* chrome, safarfi, opera */
+*::-webkit-scrollabar {
+  display: none;
+}
+
+.overflow-y-auto::-webkit-scrollbar,
+.overflow-y-scroll::-webkit-scrollbar,
+.overflow-y::-webkit-scrollbar,
+.overflow-x-auto::-webkit-scrollbar,
+.overflow-x::-webkit-scrollbar,
+.overflow-x-scroll::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}

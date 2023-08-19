@@ -1,0 +1,45 @@
+<%
+=begin%>
+ user is current user 
+<%
+=end%>
+
+<% is_owner = message.user_id == user.id %>
+
+<% klass = "my-2" %>
+<% if is_owner %>
+  <% klass += " mr-2" %>
+<% else %>
+  <% klass += " ml-2" %>
+<% end %>
+
+<% if is_owner %>
+  <div id="<%= dom_id(message) %>" class="my-1 mr-2">
+    <div class="p-1 w-full flex flex-row-reverse">
+      <div class="w-message">
+        <div class="flex justify-end">
+          <p class="body mr-2 py-3 px-4 bg-primary dark:bg-dark-primary rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-onPrimary dark:text-dark-onPrimary"><%= message.body %></p>
+        </div>
+        <p class="txt-txtSecondary dark:text-dark-txtSecondary text-right text-sm mr-2"><%= message.created_time %></p>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <div class="flex mx-1">
+    <div class="w-8 h-full flex">
+      <%= image_tag message.user.last_profile, class: "w-full h-8 rounded-full object-cover" %>
+    </div>
+    <div class="w-message">
+      <div class="max-w-message">
+        <div class="flex">
+          <p class="text-link dark:text-dark-link text-sm font-semibold ml-3 mb-1"><%= message.user.full_name %></p>
+          <% if message.user.online? %>
+            <span class="bx bxs-circle text-dark-primary text-sm mt-1 text-14"></span>
+          <% end %>
+        </div>
+        <p class="body inline-flex ml-2 py-3 px-4 bg-gray-400 dark:bg-gray-700 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white"><%= message.body %></p>
+      </div>
+      <p class="txt-txtSecondary dark:text-dark-txtSecondary text-sm w-full ml-2"><%= message.created_time %></p>
+    </div>
+  </div>
+<% end %>

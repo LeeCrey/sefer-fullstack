@@ -1,0 +1,13 @@
+<%= turbo_frame_tag "result" do %>
+  <% if @users.present? %>
+    <%= render @users, { follows: false, online: false } %>
+    <%= render "users/next", { pagy: @pagy, next_url: @next_url, prev_url: @prev_url } %>
+  <% else %>
+    <div class="h-40 flex items-center justify-center items-center">
+      <div class="inline-block">
+        <span class="text-txtPrimary dark:text-dark-txtPrimary font-semibold">No result found!</span>
+        <p class="text-txtSecondary dark:text-dark-txtSecondary">Try using different words</p>
+      </div>
+    </div>
+  <% end %>
+<% end %>

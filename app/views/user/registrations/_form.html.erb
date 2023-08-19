@@ -1,0 +1,80 @@
+<% border = "border border-windows dark:border-dark-onSurface" %>
+<% klass = "w-full bg-surface dark:bg-dark-surface sm:p-4 p-2" %>
+<% controllers = "registration--edit registration--password" %>
+<% klass_for_label = "dark:text-dark-txtPrimary text-txtPrimary font-semibold block mb-1" %>
+<% klass_for_input = border + " w-full my-1 mt-2 rounded-[4px] bg-transparent text-txtSecondary dark:text-dark-txtSecondary p-3 hover:border-primary dark:hover:border-dark-primary" %>
+<% klass_for_select = border + " dark:text-dark-txtSecondary text-txtSecondary bg-transparent rounded p-3 w-full" %>
+<% klass_for_div = "my-6 sm:my-4" %>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { data: { turbo: false, controller: controllers }, class: klass }) do |f| %>
+  <span class="block w-full bg-dark my-1 hover:cursor-pointer text-blue-400 mb-2 float-left">
+    <i class="bx bx-arrow-back bx-sm m-2 h-6 w-6"  data-controller="application" data-action="click->application#redirectBack"></i>
+  </span>
+
+  <%= tag.div "", class: klass_for_div do %>
+    <%= f.label :first_name, class: klass_for_label + " required" %>
+    <%= f.text_field :first_name, class: klass_for_input, placeholder: "John", required: true %>
+  <% end %>
+
+  <%= tag.div "", class: klass_for_div do %>
+    <%= f.label :last_name, class: klass_for_label %>
+    <%= f.text_field :last_name, class: klass_for_input, placeholder: "Doe(Optional)" %>
+  <% end %>
+
+  <%= tag.div "", class: klass_for_div, data: { registration__edit_biographyCount_value: "1" }  do %>
+    <% place_holder = "Describe yourself. 200 characters max." %>
+    <%= f.label :biography, class: klass_for_label %>
+    <%= f.text_area :biography, class: (klass_for_input + " resize-none"), data: {
+      registration__edit_target: "biography", action: "input->registration--edit#changeCharsCount" }, 
+      placeholder: place_holder, rows: 4 %>
+    <div class="flex justify-between text-txtSecondary dark:text-dark-txtSecondary">
+      <span class="text-sm" data-registration--edit-target="biographyCharsCount"></span>
+      <span class="border border-windows dark:border-dark-onSurface p-1 rounded hover:cursor-pointer" data-action="click->registration--edit#clearChars">Clear</span>
+    </div>
+  <% end %>
+
+  <%= tag.div "", class: klass_for_div do %>
+    <%= f.label :gender, class: klass_for_label + ' required' %>
+    <%= f.select :gender, User::GENDER, {}, class: klass_for_select, required: true %>
+  <% end %>
+
+  <%= tag.div "", class: klass_for_div do %>
+    <%= f.label :martial_status, class: klass_for_label %>
+    <%= f.select :martial_status, User::MARTIAL_STATUS, {}, class: klass_for_select %>
+  <% end %>
+
+  <%= tag.div "", class: klass_for_div do %>
+    <%= f.label :country, class: klass_for_label %>
+    <%= f.country_select :country, { priority_countries: ["ET"] }, { class: klass_for_select + " required-field", required: true } %>
+  <% end %>
+
+  <%= tag.div "", class: klass_for_div + " relative" do %>
+    <%= f.label :current_password, class: klass_for_label + " required" %>
+    <%= f.password_field :current_password, class: klass_for_input, placeholder: "Required", required: true %>
+  <% end %>
+
+  <%= tag.div "", class: klass_for_div + " relative" do %>
+    <%= f.label :password, class: klass_for_label %>
+    <%= f.password_field :password, class: klass_for_input, placeholder: "Leave blank if you don\'t want to change",
+      minlength: @minimum_password_length,
+      data: { registration__password_target: "password" } %>
+    <div class="absolute top-0 bottom-0 right-0 flex items-center mr-2">
+      <span class="dark:text-on-dark-2 bx bx-show text-gray-600 bx-sm" data-action="click->registration--password#togglePassword"></span>
+    </div>
+    <% if @minimum_password_length %>
+      <span class="text-txtSecondary dark:text-dark-txtSecondary font-sm">(<%= @minimum_password_length %> characters minimum)</span>
+    <% end %>
+  <% end %>
+
+  <%= tag.div "", class: klass_for_div + " relative" do %>
+    <%= f.label :password_confirmation, class: klass_for_label %>
+    <%= f.password_field :password_confirmation, placeholder: "Leave blank if you didn\'t fill the above",
+    data: { action: "input->registration--password#checkPasswordConfirmation" }, class: klass_for_input %>
+    <i class="bx bx-sm absolute text-tint top-1/2 right-0 mr-2" data-registration--password-target="status" id="status_icon_hidden"></i>
+  <% end %>
+
+  <%= tag.div "", class: klass_for_div do %>
+    <%= f.submit "Save", data: { registration__password_target: "btn" },
+    class: "bg-primary dark:bg-dark-primary font-semibold w-full p-3 sm:p-2 text-onPrimary rounded my-4" %>
+  <% end %>
+<% end %>

@@ -1,0 +1,17 @@
+<%= content_for :title_section do %>
+ <title>Edit Account</title>
+<% end %>
+
+<div class="relative w-full h-full flex flex-col md:p-0 sm:flex-row sm:gap-3 lg:px-2 mx-auto overflow-y-auto sm:overflow-y-unset" data-controller="sidebar">
+  <%= render "shared/nav", { w: "", user: current_user } %>
+
+  <main class="container flex justify-between lg:gap-2 h-full w-full" data-sidebar-target="container">
+    <section class="sm:overflow-y-auto sm:max-h-screen max-w-xl w-full mt-1 mx-1">
+      <%= turbo_frame_tag "user" do %>
+        <%= render "user/registrations/form" %>
+      <% end %>
+    </section>
+  </main>
+
+  <%= render "shared/sm_side" %>
+</div>

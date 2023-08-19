@@ -1,0 +1,7 @@
+<% base_class = "font-semibold py-1 px-3 text-center rounded text-onPrimary dark:text-dark-onPrimary " %>
+<% btn_class = base_class + "focus:cursor-wait hover:cursor-pointer bx bx-sm" %>
+<% btn_class += !@follows ? " bx-user-check bg-dark-primary" : " bx-user-plus bg-primary" %>
+
+<%= turbo_frame_tag "#{dom_id(@user)}-follow" do %>
+  <%= button_to "", follow_user_path(@user), class: btn_class, method: :post %>
+<% end %>

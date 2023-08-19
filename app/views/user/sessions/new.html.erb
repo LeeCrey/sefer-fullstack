@@ -1,0 +1,71 @@
+<%= content_for :title_section do %>
+  <title>Login</title>
+<% end %>
+
+<% input_class="w-full my-1 mt-2 rounded-[4px] bg-transparent text-txtSecondary dark:text-dark-txtSecondary p-3 border border-windows dark:border-dark-onSurface hover:border-primary dark:hover:border-dark-primary" %>
+<% check_box = "bg-surface dark:bg-dark-onSurface border border-windows dark:border-dark-windows checked:bg-primary dark:checked:bg-dark-primary" %>
+<% div2_klass = "inline-flex items-center justify-center absolute left-0 top-0 h-full w-10" %>
+
+<div class="flex flex-col items-center justify-center h-screen p-1" data-controller="registration--password">
+  <div class="flex flex-col h-full sm:h-auto bg-surface dark:bg-dark-surface shadow dark:shadow-none px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-md w-full max-w-md">
+    <div class="flex justify-end">
+      <div class="text-right mb-2 sm:flex justify-end" data-controller="theme">
+        <% if cookies["theme"] == "dark" %>
+          <input type="checkbox" name="theme" checked id="theme" class="hidden" data-theme-target="themeBox" data-action="change->theme#toggle">
+        <% else %>
+          <input type="checkbox" name="theme" id="theme" class="hidden" data-theme-target="themeBox" data-action="change->theme#toggle">
+        <% end %>
+        <label for="theme" class="flex items-center p-1 w-12 h-6 dark:bg-dark-onSurface bg-onSurface justify-between rounded-xl">
+          <i class="bx bxs-moon text-gray-300"></i>
+          <i class="bx bxs-sun dark:text-white"></i>
+          <span class="trasition duration-500 bg-primary dark:bg-dark-primary w-5 h-5 rounded-full absolute"></span>
+        </label>
+      </div>
+    </div>
+
+    <p class="text-center text-red-600 dark:text-red-400 mt-2 mb-2"><%= alert.present? ? alert : notice  %></p>
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), data: { turbo: false }) do |f| %>
+      <div class="flex flex-col text-sm rounded-md">
+        <%= f.text_field :email, class: input_class + " mb-3", placeholder: "Email", required: true %>
+        <%= tag.div "", class: "relative w-full" do %>
+          <%= f.password_field :password, class: input_class, placeholder: "Password", required: true, data: { registration__password_target: "password" } %>
+          <div class="absolute top-0 bottom-0 right-0 flex items-center mr-2">
+            <span class="dark:text-on-dark-2 bx bx-show text-txtSecondary dark:text-dark-txtSecondary bx-sm" data-action="click->registration--password#togglePassword"></span>
+          </div>
+        <% end %>
+        <%= link_to "Forgot password?", new_password_path(resource_name), class: "text-link dark:text-dark-link block text-right mb-2" %>
+      </div>
+
+      <div class="flex items-center">
+        <%= f.check_box :remember_me, class: check_box %>
+        <span class="ml-1 text-txtSecondary dark:text-dark-txtSecondary">Remember me</span>
+      </div>
+
+      <button class="mt-5 w-full p-2 font-semibold bg-primary dark:bg-dark-primary text-onPrimary dark:text-dark-onPrimary rounded-[4px]" type="submit">Sign in</button>
+    <% end %>
+
+    <div class="mt-5 text-sm text-link dark:text-dark-link flex justify-between">
+      <%= link_to "Account Locked?", new_unlock_path(resource_name) %>
+      <%= link_to "Sign Up", new_registration_path(resource_name) %>
+    </div>
+
+    <div class="flex justify-center mt-5 text-sm">
+      <p class="text-txtSecondary dark:text-dark-txtSecondary">or you can sign with</p>
+  	</div>
+
+    <div class="mt-5 flex justify-center gap-3">
+      <span class="bx bxl-google bx-sm dark:text-dark-txtPrimary text-txtPrimary"></span>
+      <span class="bx bxl-github bx-sm"></span>
+      <span class="bx bxl-facebook-circle bx-sm text-link"></span>
+    </div>
+
+    <% klas = "underline text-link dark:text-dark-link font-semibold" %>
+    <div class="mt-5 flex justify-center text-sm text-txtSecondary dark:text-dark-txtSecondary">
+      <p> By using our app you are agree to the <br />
+        <%= link_to "Terms of Use", terms_of_use_path, class: klas %> and
+        <%= link_to "Privacy Policy", privacy_policy_path, class: klas %>
+      </p>
+    </div>
+  </div>
+</div>

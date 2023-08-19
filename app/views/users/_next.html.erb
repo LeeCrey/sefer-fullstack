@@ -1,0 +1,9 @@
+<div class="flex justify-end mt-3">
+  <% if pagy.prev.present? %>
+    <%= link_to "Prev", prev_url, class: "p-2 border rounded dark:border-dark-onSurface text-txtSecondary dark:text-dark-txtSecondary", data: { turbo_frame: "result" } %>
+  <% end %>
+
+  <% if pagy.next.present? %>
+    <%= link_to "Next", next_url, class: "p-2 rounded bg-surface dark:bg-dark-surface ml-4 text-txtSecondary dark:text-dark-txtSecondary", data: { turbo_frame: "result" } %>
+  <% end %>
+</div>

@@ -1,0 +1,9 @@
+<%= turbo_frame_tag "comments-page-#{@pagy.page}" do %>
+  <%= render @comments %>
+
+  <% if @pagy.next.present? %>
+    <div class="border text-center">
+      <%= link_to "Load more", @next_url, class: "text-txtPrimary dark:text-dark-txtPrimary p-2" %>
+    </div>
+  <% end %>
+<% end %>

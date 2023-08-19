@@ -1,0 +1,36 @@
+<%= content_for :title_section do %>
+  <title>Chats</title>
+<% end %>
+
+<div class="relative h-full flex flex-col sm:flex-row" data-controller="sidebar">
+  <%= render "shared/nav", { w: "", user: nil } %>
+
+  <main class="main-container overflow-y-auto flex-1 flex justify-center sm:mx-2" data-sidebar-target="container">
+    <section class="h-full w-full max-w-xl overflow-y-auto">
+      <%= turbo_frame_tag "chats_section", class: "w-full divide-y divide-windows dark:divide-dark-windows" do %>
+        <% if @chats.present? %>
+          <%= render @chats %>
+        <% else %>
+          <div class="h-full flex items-center justify-center">
+            <div class="inline-block">
+              <p class="text-txtPrimary dark:text-dark-txtPrimary font-semibold text-center">No Chat Found!</p>
+              <p class="text-txtSecondary dark:text-dark-txtSecodary text-center">You haven't joined or created any chat yet.</p>
+              <p class="text-txtSecondary dark:text-dark-txtSecodary text-center">Create a new one or join chats</p>
+            </div>
+          </div>
+        <% end %>
+
+        <% fab = "bx bx-plus bx-sm text-link dark:text-dark-link shadow m-4 dark:text-dark-link bg-surface dark:bg-dark-surface p-2.5 rounded-full absolute bottom-0 rigth-0" %>
+        <div class="block sm:hidden">
+          <%= link_to "", new_chat_path, data: { turbo: false }, class: fab %>
+        </div>
+        <div class="hidden sm:flex">
+          <%= link_to "", new_chat_path,  class: fab %>
+        </div>
+      <% end %>
+    </section>
+  </main>
+
+  <%= render "shared/online_friends" %>
+  <%= render "shared/sm_side" %>
+</div>

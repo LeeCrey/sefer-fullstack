@@ -1,0 +1,19 @@
+development:
+  :concurrency: 5
+
+production:
+  :concurrency: 5
+
+:max_retries: 0
+
+:queues:
+  - default
+  - jwt_token_remove
+  - account_delete
+
+:scheduler:
+  :schedule:
+    token_list:
+      cron: 0 0 1 * * # This will run the command foo at 12:00AM on the first of every month 
+      # queue: default
+      class: JwtDeleteJob

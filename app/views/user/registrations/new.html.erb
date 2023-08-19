@@ -1,0 +1,67 @@
+<%= content_for :title_section do %>
+ <title>Sign up</title>
+<% end %>
+
+<% klass_for_input="mb-1 w-full rounded-[4px] bg-surface dark:bg-dark-surface text-txtSecondary dark:text-dark-txtSecondary p-3 border border-windows dark:border-dark-onSurface hover:border-primary dark:hover:border-dark-primary" %>
+<% klass_for_label = "dark:text-dark-txtSecondary text-txtSecondary font-semibold block mb-1" %>
+<% klass_for_div = "my-3" %>
+<% klass_for_select = " text-txtSecondary dark:text-dark-txtSecondary bg-transparent border border-windows dark:border-dark-onSurface rounded p-3 w-full focus:outline-none" %>
+
+<div class="flex flex-col items-center h-screen p-1">
+  <div class="overflow-y-auto flex flex-col h-full bg-surface dark:bg-dark-surface shadow dark:shadow-none px-4 py-2 rounded-md w-full max-w-md" data-controller="registration--password">
+    <span class="bx bx-arrow-back bx-sm text-link dark:text-dark-link p-1 hover:cursor-pointer" data-action="click->registration--password#redirectBack"></span>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :post } ) do |f| %>
+      <%= tag.div "", class: klass_for_div do %>
+        <%= f.label :first_name, class: klass_for_label + " required" %>
+        <%= f.text_field :first_name, class: klass_for_input, placeholder: "John", required: true %>
+      <% end %>
+
+      <%= tag.div "", class: klass_for_div do %>
+        <%= f.label :last_name, class: klass_for_label %>
+        <%= f.text_field :last_name, class: klass_for_input, placeholder: "Doe(Optional)" %>
+      <% end %>
+
+      <%= tag.div "", class: klass_for_div do %>
+        <%= f.label :gender, class: klass_for_label + " required" %>
+        <%= f.select :gender, User::GENDER, {}, class: klass_for_select, required: true %>
+      <% end %>
+
+      <%= tag.div "", class: klass_for_div do %>
+        <%= f.label :country, class: klass_for_label %>
+        <%= f.country_select :country, { priority_countries: ["ET"] }, { class: klass_for_select + " required-field" } %>
+      <% end %>
+
+      <%= tag.div "", class: klass_for_div do %>
+        <%= f.label :email, class: klass_for_label + " required" %>
+        <%= f.email_field :email, class: klass_for_input, placeholder: "JohnDoe@example.com", required: true %>
+        <p class="text-red-600 dark:text-red-400"><%= resource.errors["email"].first %></p>
+      <% end %>
+
+      <%= tag.div "", class: klass_for_div + " relative" do %>
+        <%= f.label :password, class: klass_for_label + " required" %>
+        <%= f.password_field :password, required: true, class: klass_for_input, 
+          minlength: @minimum_password_length,
+          data: { registration__password_target: "password" } %>
+        <div class="absolute top-0 bottom-0 right-0 mt-1 flex items-center mr-2">
+          <span class="text-txtSecondary dark:text-dark-txtSecondary bx bx-show bx-sm" data-action="click->registration--password#togglePassword"></span>
+        </div>
+        <% if @minimum_password_length %>
+          <span class="text-txtSecondary dark:text-dark-txtSecondary font-sm">(<%= @minimum_password_length %> characters minimum)</span>
+        <% end %>
+      <% end %>
+
+      <%= tag.div "", class: klass_for_div + " relative" do %>
+        <%= f.label :password_confirmation, class: klass_for_label + " required" %>
+        <%= f.password_field :password_confirmation, required: true, data: { action: "input->registration--password#checkPasswordConfirmation" }, class: klass_for_input %>
+        <i class="absolute mr-2 top-1/2 mt-1 right-0 text-txtSecondary dark:text-dark-txtSecondary bx bx-sm" data-registration--password-target="status" id="status_icon_hidden"></i>
+        <p class="text-center text-red-600 dark:text-red-400"><%= resource.errors["password_confirmation"].first %></p>
+      <% end %>
+
+      <%= tag.div "", class: klass_for_div do %>
+        <%= f.submit "Sign up", data: { registration__password_target: "btn" },
+          class: "bg-primary dark:bg-dark-primary text-onPrimary dark:text-dark-onPrimary font-semibold w-full p-2 mt-1 rounded" %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

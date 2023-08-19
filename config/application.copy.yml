@@ -1,0 +1,20 @@
+EMAIL_ADDRESS: test@example.com
+
+DATABASE_URL: postgresql://username:password$@localhost:5432/dbname
+
+GOOGLE_AUTH_CLIENT_ID: GET from google developers console
+
+SENDGRID_API_KEY:
+
+ACTIVE_RECORD_PRIMARY_KEY: 
+ACTIVE_RECORD_DETERMINISTIC_KEY: 
+ACTIVE_RECORD_KEY_DERIVATION_SALT: 
+
+JWT_SECRET_KEY: 
+SECRET_KEY_BASE:
+RAILS_MASTER_KEY: 
+
+aws_access_key_id:
+aws_secret_access_key: 
+aws_bucket_name:
+

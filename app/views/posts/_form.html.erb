@@ -1,0 +1,15 @@
+<%= turbo_frame_tag "post_form" do %>
+  <% klass = "border-0 bg-surface sec p-3 h-80 w-full dark:text-dark-txtPrimary dark:bg-dark-surface resize-none" %>
+  <div class="m-auto flex flex-col text-txtSecondary p-1 px-2">
+    <%= form_for(@post, method: method, data: { turbo: false, controller: "post", action: "submit->post#onSubmit" } ) do |form| %>
+      <%= form.text_area :content, data: { post_target: "content", action: "input->post#onInputChange" },
+  	    class: klass, placeholder: "Content ...", pellcheck: false %>
+
+      <span class="ml-auto text-txtSecondary dark:text-dark-txtSecondary mt-1 text-xs font-semibold" data-post-target="count">0/1000</span>
+      <div class="flex justify-end">
+        <%= link_to "Cancel", root_path, class: "hidden sm:flex btn border border-gray-300 p-1 px-4 font-semibold cursor-pointer text-gray-500 ml-auto dark:border-dark-onSurface" %>
+        <%= tag.button "Post", type: "submit", class: "p-1 px-4 font-semibold cursor-pointer text-onPrimary dark:text-dark-onPrimary ml-2 bg-primary dark:bg-dark-primary" %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

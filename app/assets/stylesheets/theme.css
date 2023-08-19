@@ -1,0 +1,6 @@
+/*  */
+
+.theme:checked + label > span {
+ transform:  translateX(22px);
+ transition: .5s ease;
+}

@@ -1,0 +1,5 @@
+<%= turbo_frame_tag "navigation" do %>
+  <% if @pagy.next.present? %>
+    <%= link_to "Older Messages", @next_url, class: "text-link dark:text-dark-link" %>
+  <% end %>
+<% end %>

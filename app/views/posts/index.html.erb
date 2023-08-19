@@ -1,0 +1,17 @@
+<%= content_for :title_section do %>
+  <title>Home</title>
+<% end %>
+
+<div class="relative h-full flex flex-col sm:flex-row" data-controller="sidebar">
+  <%= render "shared/nav", { w: "", user: nil } %>
+
+  <main class="main-container overflow-y-auto flex-1 flex justify-center sm:mx-2" data-sidebar-target="container">
+    <section class="h-full w-full max-w-xl overflow-y-auto">
+      <%= render "shared/current_user" %>
+      <%= render @posts %>
+    </section>
+  </main>
+
+  <%= render "shared/side" %>
+  <%= render "shared/sm_side" %>
+</div>

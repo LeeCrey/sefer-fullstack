@@ -1,0 +1,11 @@
+<!-- posts for turbo request -->
+
+<%= turbo_frame_tag "users" do %>
+  <%= render @posts %>
+<% end %>
+
+<% if @meta[:next].present? %>
+  <%= turbo_frame_tag "users", src: root_path(page: @meta[:next]), loading: :lazy do %>
+    <i class="bx bx-md bx-rotate-right bx-spin"></i>
+  <% end %>
+<% end %>

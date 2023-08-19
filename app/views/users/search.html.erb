@@ -1,0 +1,23 @@
+<%= javascript_include_tag "lib/search" %>
+
+<%= content_for :title_section do %>
+  <title>Search Friends</title>
+<% end %>
+
+<div class="relative w-full h-full lg:w-desktop flex flex-col md:p-0 sm:flex-row sm:gap-3 lg:px-2 mx-auto" data-controller="sidebar">
+  <%= render "shared/nav", { w: "", user: nil } %>
+
+  <main class="container flex justify-between lg:gap-2 h-full w-full" data-sidebar-target="container">
+    <section class="overflow-y-auto sm:max-h-screen w-full md:max-w-xl md:mx-4 divide-y divide-windows dark:divide-dark-windows mx-1">
+      <%= render "users/search_form" %>
+
+      <div class="result mb-16">
+        <p class="text-txtPrimary dark:text-dark-txtPrimary font-bold inline rounded">Result :</p>
+
+        <%= turbo_frame_tag "result" %>
+      </div>
+    </section>
+  </main>
+
+  <%= render "shared/sm_side" %>
+</div>

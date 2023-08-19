@@ -1,0 +1,7 @@
+<%= turbo_frame_tag "result" do %>
+  <%= render @users, { follows: false, online: false } %>
+
+  <div class="mr-2 mt-1">
+    <%= render "users/next", { pagy: @pagy, next_url: @next_url, prev_url: @prev_url } %>
+  </div>
+<% end %>

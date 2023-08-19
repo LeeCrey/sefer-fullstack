@@ -1,0 +1,37 @@
+<% klass_for_label = "dark:text-dark-txtSecondary text-txtSecondary font-semibold block mb-1" %>
+<% klass_for_div = "my-3" %>
+<% klass_for_select = "text-txtSecondary dark:text-dark-txtSecondary bg-transparent border border-windows dark:border-dark-onSurface rounded p-3 w-full focus:outline-none" %>
+<% klass_for_input = "w-full my-1 mt-2 rounded-[4px] bg-transparent text-txtSecondary dark:text-dark-txtSecondary p-3 border border-windows dark:border-dark-onSurface hover:border-primary dark:hover:border-dark-primary" %>
+
+<%= form_with(model: chat, html: { data: { turbo: false } } ) do |f| %>
+  <%= tag.div "", class: klass_for_div + " mb-10" do %>
+    <%= f.label :cover, for: "", class: klass_for_label + " required" %>
+    <div class="flex items-center justify-center">
+      <div class="w-32 h-32 border-2 relative border-primary dark:border-dark-primary rounded-full p-1">
+        <%= f.file_field :cover, class: "hidden", required: true, accept: "image/*", data: { action: "change->chat--new#onImageSelect" } %>
+        <img src="" data-chat--new-target="image" class="object-cover p-1 w-full h-full rounded-full bg-surface dark:bg-dark-surface" id="image-show">
+        <div class="float-right bg-onSurface dark:bg-dark-onSurface rounded-full flex items-center justify-center p-1">
+          <label for="chat_cover" class="bx bxs-camera bx-sm text-link dark:text-dark-link"></label>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <%= tag.div "", class: klass_for_div do %>
+    <%= f.label :title, class: klass_for_label + " required" %>
+    <%= f.text_field :title, class: klass_for_input, placeholder: "Chat title(requried)", required: true %>
+  <% end %>
+
+  <%= tag.div "", class: klass_for_div, data: { registration__edit_biographyCount_value: "1" }  do %>
+    <% place_holder = "Describe the chat in a sentence. 500 characters max." %>
+    <%= f.label :description, class: klass_for_label %>
+    <%= f.text_area :description, class: (klass_for_input + " resize-none"), data: {
+      registration__edit_target: "biography", action: "input->registration--edit#changeCharsCount" }, placeholder: place_holder %>
+    <div class="flex justify-between">
+      <span class="text-sm text-txtSecondary dark:text-dark-txtSecondary" data-registration--edit-target="biographyCharsCount"></span>
+      <span class="border dark:border-dark-onSurface text-txtSecondary dark:text-dark-txtSecondary p-1 rounded hover:cursor-pointer" data-action="click->registration--edit#clearChars">Clear</span>
+    </div>
+  <% end %>
+
+  <button type="submit" data-action="click->chat--new#onFormSubmit" class="bx bx-save bx-sm text-link shadow m-4 dark:text-dark-link bg-onSurface dark:bg-dark-onSurface p-2.5 rounded-full absolute bottom-0 rigth-0"></button>
+<% end %>

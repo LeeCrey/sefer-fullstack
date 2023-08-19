@@ -1,0 +1,22 @@
+<%= tag.div "", id: dom_id(chat), class: "flex p-3 bg-surface dark:bg-dark-surface s-chat", data: { controller: "chat", chat_id_value: chat.id, action: "click->chat#open"} do %>
+  <div class="user-image w-10 h-10">
+    <%= image_tag chat.cover, class: "w-full h-full rounded-full" %>
+  </div>
+
+  <div class="ml-2 flex-1">
+    <div class="flex justify-between w-full">
+      <h4 class="text-txtPrimary font-semibold dark:text-dark-txtPrimary capitalize text-ellipsis flex-nowrap"><%= chat %></h4>      
+      <p class="text-txtSecondary dark:text-dark-txtSecondary text-sm"><%= chat.latest_messages.first&.created %></p>
+    </div>
+
+    <% msg = chat.latest_messages.first %>
+    <% if msg %>
+      <div class="flex">
+        <% if msg.user_id == current_user.id %>
+          <span class="text-txtPrimary dark:text-dark-txtPrimary" id="<%=dom_id(chat)%>_sender">You:</span>
+        <% end %>
+        <p class="text-txtSecondary dark:text-dark-txtSecondary ml-1" id="<%= dom_id(chat) %>_message"><%= chat.latest_messages.first %></p>
+      </div>
+    <% end %>
+  </div>
+<% end %>

@@ -1,0 +1,90 @@
+<%# NAVIGATION %>
+<% nav_class = w + " bg-surface dark:bg-dark-surface shadow sticky top-0 p-2 flex justify-between items-center sm:left sm:pt-2" %>
+<% nav_class += " dark:text-white relative sm:inline-block sm:overflow-y-auto sm:p-4 sm:h-y-auto " %>
+<% nav_class += "md:w-side dark:bg-dark-surface" %>
+
+<%# NAVIGATION ITEM %>
+<% nav_item_class = "flex items-center py-2 px-3 text-base leading-6 rounded-full " %>
+<% nav_item_class += "dark:text-dark-txtSecondary text-txtSecondary " %>
+<% nav_item_class += "sm:my-4 sm:hover:bg-onSurface sm:dark:hover:bg-dark-onSurface " %>
+
+<% home_active = current_page? root_path %>
+<% users_active = current_page? users_path %>
+<% chat_active = current_page? chats_path %>
+<% notif_active = current_page? notifications_path %>
+<% search_active = current_page? search_path %>
+<% profile_active = false %>
+<% profile_active = current_page? user_path(user.id) unless user.nil?  %>
+
+<% nav_items = [{ url: root_path, icon: "home", text: "Home", active: home_active }] %>
+<% nav_items << { url: users_path, icon: "users", text: "Friends", active: users_active } %> 
+<% nav_items << { url: search_path, icon: "search", text: "Search", active: search_active } %> 
+<% nav_items << { url: chats_path, icon: "chat", text: "Chats", active: chat_active } %>
+<% nav_items << { url: notifications_path, icon: "notification", text: "Notifications", active: notif_active } %>
+<% nav_items << { url: current_user, icon: "user", text: "Profile", active: profile_active } %>
+
+<%= tag.nav class: nav_class, id: "nav-menu" do %>
+  <div class="flex flex-row-reverse items-center justify-right">
+    <div class="inline-block sm:hidden">
+      <span class="bx bx-menu bx-sm border-windows dark:border-dark-onSurface text-txtSecondary dark:text-dark-txtSecondary p-1 rounded border" data-action="click->sidebar#toggle"></span>
+    </div>
+
+    <div class="text-right hidden sm:flex" data-controller="theme">
+      <% if cookies["theme"] == "dark" %>
+        <input type="checkbox" name="theme" checked id="theme" class="hidden theme" data-theme-target="themeBox" data-action="change->theme#toggle">
+      <% else %>
+        <input type="checkbox" name="theme" id="theme" class="theme hidden" data-theme-target="themeBox" data-action="change->theme#toggle">
+      <% end %>
+      <label for="theme" class="flex items-center p-1 w-12 h-6 dark:bg-dark-onSurface bg-onSurface justify-between rounded-xl">
+        <i class="bx bxs-moon text-gray-300"></i>
+        <i class="bx bxs-sun dark:text-white"></i>
+        <span class="trasition duration-500 bg-primary dark:bg-dark-primary w-5 h-5 rounded-full absolute"></span>
+      </label>
+    </div>
+  </div>
+
+  <% nav_items.each do |item| %>
+    <% class_item = nav_item_class %>
+    <% icon_name = "bx bx-sm sm:w-12 #{item[:icon]}" %>
+    <% if item[:active] %>
+      <% icon_name +=  "-filled text-primary" %>
+    <% end %>
+    <% class_item += " hidden sm:flex" if item[:icon] == "user" %>
+    <% class_item += " sm:hidden flex" if item[:icon] == "search" %>
+
+    <%= link_to item[:url], class: class_item do %>
+      <%= tag.i "", class: icon_name %>
+      <% if item[:active] %>
+        <span class="hidden sm:inline-block text-txtPrimary dark:text-dark-txtPrimary font-semibold"><%= item[:text] %></span>
+      <% else %>
+        <span class="hidden sm:inline-block text-txtSecondary dark:text-dark-txtSecondary"><%= item[:text] %></span>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <% klass = "flex items-center py-2 text-txtSecondary dark:text-dark-txtSecondary" %>
+  <div class="relative visible sm:hidden" data-controller="dropdown">
+    <button class="text-txtSecondary dark:text-dark-txtSecondary bx bx-caret-down bx-sm rounded-full" data-action="dropdown#toggle click@window->dropdown#hide"></button>
+
+    <div
+      data-dropdown-target="menu"
+      class="hidden transition transform origin-top-left absolute right-0 m-2 bg-surface border dark:border-dark-onSurface dark:bg-dark-surface rounded p-2"
+      data-transition-enter-from="opacity-0 scale-95"
+      data-transition-enter-to="opacity-100 scale-100"
+      data-transition-leave-from="opacity-100 scale-100"
+      data-transition-leave-to="opacity-0 scale-95">
+      <%= tag.div "", class: klass do %>
+        <i class="bx user bx-sm px-2"></i>
+        <%= link_to "Profile", current_user %>
+      <% end %>
+      <%= tag.div "", class: klass do %>
+        <i class="bx bx-log-out-circle bx-sm px-2"></i>
+        <%= button_to "Logout", destroy_user_session_path, method: :delete %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="flex justify-center">
+    <%= button_to "Logout", destroy_user_session_path, method: :delete,  class: "py-2 px-3 rounded-full hidden border border-primary dark:border-dark-primary text-txtSecondary dark:text-dark-txtSecondary hidden sm:flex" %>
+  </div>
+<% end %>

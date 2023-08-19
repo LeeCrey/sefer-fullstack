@@ -1,0 +1,40 @@
+<%= turbo_frame_tag dom_id(@post) do %>
+  <div class="flex items-center justify-between text-gray-500 text-sm mt-2 px-3">
+    <div class="w-50 flex w-20 gap-5 py-1 mb-4">
+      <% vote_icon = "bx bx-sm " %>
+      <% if @post.voted %>
+        <% vote_icon += "bxs-heart text-rose-600 outline-none focus:outline-none" %>
+      <% else %>
+        <% vote_icon += "bx-heart" %>
+      <% end %>
+      <%= button_to "", vote_post_path(@post), method: :post, class: vote_icon %>
+      <%= link_to "", @post, data: { turbo: false }, class: "bx bx-message-rounded bx-sm" %>
+    </div>
+
+    <div class="text-gray-500 w-50 flex mb-4">
+      <% if @post.cached_votes_up != 0 %>
+        <div class="font-semibold text-sm mr-4 gap-1">
+          <% if @post.cached_votes_up == 1 %>
+            <span><%= @post.cached_votes_up %> Like</span>
+          <% else %>
+            <span><%= @post.cached_votes_up %> Likes</span>
+          <% end %>
+        </div>
+      <% end %>
+
+      <% if (@post.cached_votes_up != 0) && (@post.comments_count != 0) %>
+        <span> • <span>
+      <% end %>
+
+      <% if @post.comments_count != 0 %>
+        <span class="font-semibold text-sm mr-4 sm:ml-3 ml-1">
+          <% if @post.comments_count > 1 %>
+            <span><%= @post.comments_count %> Comments</span>
+          <% else %>
+            <span><%= @post.comments_count %> Comment</span>
+          <% end %>
+        </span>
+      <% end %>
+    </div>
+  </div>
+<% end %>

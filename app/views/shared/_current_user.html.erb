@@ -1,0 +1,22 @@
+<%= turbo_frame_tag "post_form" do %>
+  <div class="bg-surface dark:bg-dark-surface sm:mx-0 mx-1 mt-1 sm:mt-2 p-3 flex shadow">
+    <div class="w-10 h-10">
+      <%= image_tag current_user.last_profile, class: "w-full h-full rounded-full" %>
+    </div>
+  
+    <div class="user-section ml-3">
+      <h5 class="dark:text-dark-txtPrimary text-txtPrimary text-l font-semibold"><%= current_user %></h5>
+      <%= link_to "What\'s on your mind?", new_post_path, class: "hidden sm:flex dark:text-dark-link text-link" %>
+      <%= link_to "What\'s on your mind?", new_post_path, data: { turbo: false }, class: "block sm:hidden dark:text-dark-link text-link" %>
+    </div>
+  </div>
+<% end %>
+
+<%
+=begin
+  One link(second) for mobile and the other(first) is for larger devices.
+  For larger device, use turbo, but for mobile use full navigation.
+  I didnt want to write javascript to observe screen change. Wanted to do just using css. It does.
+=end
+%>
+

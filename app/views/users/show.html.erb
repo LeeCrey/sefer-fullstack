@@ -1,0 +1,30 @@
+<%= content_for :title_section do %>
+  <title><%= @user %></title>
+<% end %>
+
+<div class="relative h-full flex flex-col sm:flex-row" data-controller="sidebar">
+  <%= render "shared/nav", { w: "hidden sm:block", user: @user } %>
+
+  <main class="main-container overflow-y-auto flex-1 sm:mx-2 md:mx-6" data-sidebar-target="container">
+    <section class="h-full w-full max-w-xl overflow-y-auto">
+      <%= turbo_frame_tag "user" do %>
+        <div class="flex justify-start bg-surface dark:bg-dark-surface sm:hidden shadow sticky top-0">
+          <span class="my-1 sm:mx-4 mx-2 text-2xl font-medium rounded-full text-blue-400 hover:bg-onSurface dark:hover:bg-dark-onSurface hover:text-blue-300 float-right">
+            <i class="bx bx-arrow-back m-2 h-6 w-6" data-controller="application" data-action="click->application#redirectBack"></i>
+          </span>
+  
+          <div class="mx-2">
+            <h2 class="mb-0 text-xl font-bold text-txtPrimary dark:text-dark-txtPrimary"><%= @user %></h2>
+            <p class="mb-0 w-48 text-xs text-gray-400"><%= @user.posts_count %> Posts</p>
+          </div>
+        </div>
+        <hr class="border-windows dark:border-dark-onSurface" />
+
+        <%= render "users/profile", { user: @user } %>
+
+        <%= render @posts %>
+      <% end %>
+    </section>
+  </main>
+</div>
+

@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  /* ICONS */
+  /* OUTLINED */
+  .home:before {
+    content: "\eb12";
+  }
+  .users:before {
+    content: "\eaff";
+  }
+  .chat:before {
+    content: "\ea40";
+  }
+  .notification:before {
+    content: "\e9d2";
+  }
+  .user::before {
+    content: "\ec63";
+  }
+  .setting::before{
+    content: "\ea6e";
+  }
+  .search::before {
+    content: "\ebf7";
+  }
+
+  /* FILLED */
+  .home-filled:before {
+    content: "\ede7";
+  }
+  .users-filled:before {
+    content: "\edd6";
+  }
+  .chat-filled:before {
+    content: "\ed2d";
+  }
+  .notification-filled:before {
+    content: "\ecc9";
+  }
+  .search-filled::before {
+    content: "\ee9a";
+  }
+  .user-filled::before {
+    content: "\eee1";
+  }
+}

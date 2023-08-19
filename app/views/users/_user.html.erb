@@ -1,0 +1,39 @@
+<% class_for_div = "flex justify-between items-center p-4 sefer-user mx-w bg-surface dark:bg-dark-surface" %>
+
+<%= turbo_frame_tag user do %>
+  <%= tag.div "", id: dom_id(user), class: class_for_div do %>
+    <div class="flex">
+      <%= link_to user, data: { turbo: false } do %>
+        <div class="w-8 h-8">
+          <%= image_tag user.last_profile, class: "rounded-full border-none w-full h-full", loading: "lazy" %>
+        </div>
+      <% end %>
+      <h4 class="ml-2 mt-1 text-tint dark:text-dark-txtSecondary"><%= user %></h4>
+      <% if user.verified %>
+        <%= tag.i "", class: "bx bxs-badge-check text-link mt-2 ml-1" %>
+      <% end %>
+    </div>
+
+    <div class="flex outline-none focus:outline-none items-center mr-5 gap-3 text-tint ml-2">
+      <% # Online mean the request is for online users. From shared/_online_friends.html.erb %>
+      <% if online %>
+        <% btn_class = "bx bx-sm bx-message-square-detail text-link dark:text-dark-link" %>
+        <%= tag.span "", class: btn_class %>
+      <% else %>
+        <% btn_class = "bg-primary font-semibold py-1 px-3 text-center rounded text-onPrimary dark:text-dark-onPrimary focus:cursor-wait hover:cursor-pointer bx bx-sm" %>
+        <% # should not be shown for the user itself %>
+        <% # user may request to follow or remove himself/herself, that does't make a sense %>
+        <% if user != current_user %>
+          <% btn_class += follows ? " bx-user-check" : " bx-user-plus" %>
+
+          <%= turbo_frame_tag "#{dom_id(user)}-follow" do %>
+            <%= button_to "", follow_user_path(user), class: btn_class, method: :post %>
+          <% end  %>
+  
+          <%= button_to "", hide_user_path(user), class: "text-txtSecondary dark:text-dark-txtSecondary border border-windows dark:border-dark-onSurface rounded py-1 px-3 bx bx-sm bx-user-x", target: "_top" %>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+  <hr class="dark:border-dark-onSurface" />
+<% end %>

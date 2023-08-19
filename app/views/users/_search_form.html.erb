@@ -1,0 +1,27 @@
+<% klass = "w-full bg-surface dark:bg-dark-surface sm:p-4 p-2 sm:mx-0 mt-1" %>
+<% klass_for_label = "dark:text-dark-txtPrimary text-txtPrimary font-semibold block mb-1" %>
+<% klass_for_input="w-full my-1 mt-2 rounded-[4px] bg-transparent text-txtSecondary dark:text-dark-txtSecondary p-3 border border-windows dark:border-dark-onSurface hover:border-primary dark:hover:border-dark-primary" %>
+<% klass_for_div = "my-6 sm:my-4" %>
+<% klass_for_select = " text-txtSecondary dark:text-dark-txtSecondary bg-transparent border border-windows dark:border-dark-onSurface rounded p-3 w-full focus:outline-none" %>
+
+<%= form_for(:user, url: search_path, class: klass, data: { turbo_frame: "result" }, method: :get) do |f| %>
+  <%= tag.div "", class: klass_for_div do %>
+    <%= f.label :first_name, class: klass_for_label %>
+    <%= f.text_field :first_name, class: klass_for_input, data: { search_target: "first_name" }, placeholder: "John" %>
+  <% end %>
+
+  <%= tag.div "", class: klass_for_div do %>
+    <%= f.label :last_name, class: klass_for_label %>
+    <%= f.text_field :last_name, class: klass_for_input, data: { search_target: "last_name" }, placeholder: "Doe(Optional)" %>
+  <% end %>
+
+  <%= tag.div "", class: klass_for_div do %>
+    <%= f.label :gender, class: klass_for_label %>
+    <%= f.select :gender, User::GENDER, {}, class: klass_for_select %>
+  <% end %>
+
+  <div class="my-6 py-2 text-right">
+    <button type="reset" class="border border-windows dark:border-dark-onSurface p-2 text-txtSecondary dark:text-dark-txtSecondary">Clear</button>
+    <%= f.submit "Search", class: "ml-1 bg-primary font-semibold p-2 text-onPrimary rounded" %>
+  </div>
+<% end %>

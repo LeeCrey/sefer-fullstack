@@ -1,0 +1,17 @@
+<%# NAVIGATION %>
+<% nav_class = "dark:text-white bg-surface dark:bg-dark-surface shadow sticky top-0 p-2 flex justify-between items-center sm:left" %>
+<% nav_class += " sm:inline-block sm:overflow-y-auto sm:p-4 sm:h-y-auto " %>
+<% nav_class += "md:w-side dark:bg-dark-surface hidden md:block " %>
+
+<%= tag.nav class: nav_class do %>
+  <div class="hidden sm:inline-block">
+    <%= link_to "", chats_path, class: "bx bx-arrow-back bx-sm text-link dark:text-dark-link p-1 hover:cursor-pointer" %>
+  </div>
+
+  <div class="py-4 px-2">
+    <button type="submit" class="absolute ml-4 mt-3 mr-4 bx bx-search bx-sm mb-1 text-link dark:text-dark-link"></button>
+    <input type="search" name="search" placeholder="Search chat" data-action="input->chat-show#searchChat" class="bg-onSurface dark:bg-dark-onSurface text-txtSecondary dark:text-dark-txtSecondary mt-1 h-10 px-10 pr-5 w-full text-sm focus:outline-none rounded-full border-0 ml-1"/>
+	</div>
+
+  <%= turbo_frame_tag "chats", data: { chat_show_target: "list" }, class: "divide-y divide-windows dark:divide-dark-windows chats", src: chats_path, loading: :lazy %>
+<% end %>

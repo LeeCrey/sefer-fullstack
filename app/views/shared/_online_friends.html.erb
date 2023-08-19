@@ -1,0 +1,17 @@
+<aside class="overflow-y-auto relative h-full hidden lg:inline-block w-20p">
+  <div class="h-full">
+    <div class="max-w-sm bg-surface dark:bg-dark-surface shadow rounded-lg overflow-hidden m-4">
+      <div class="flex">
+        <div class="flex-1 m-2 flex items-center">
+          <h2 class="px-2 py-2 text-xl font-semibold text-txtPrimary dark:text-dark-txtPrimary">Online Friends</h2>
+          <span class="bx bxs-circle text-sm text-yellow-400"></span>
+        </div>
+      </div>
+      <hr class="dark:border-dark-onSurface" />
+
+      <%= turbo_frame_tag "users", src: online_friends_path(limit: 6), class: "divide-y divide-windows dark:divide-dark-windows", loading: :lazy do %>
+        <i class="bx bx-md bx-rotate-right bx-spin"></i>        
+      <% end %>
+    </div>
+  </div>
+</aside>

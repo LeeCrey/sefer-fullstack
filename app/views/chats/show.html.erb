@@ -1,0 +1,46 @@
+<%= javascript_include_tag("lib/jquery") %>
+
+<%= content_for :title_section do %>
+  <title><%= @chat.title %></title>
+<% end %>
+
+<% tool_bar = "bg-surface dark:bg-dark-surface shadow p-2 sticky top-0 flex justify-between items-center dark:text-dark-primary sm:p-2 w-full" %>
+
+<div class="relative h-full flex flex-col sm:flex-row" data-controller="chat--show" data-chat--show-id-value="<%= @chat.id %>" data-chat--show-uid-value="<%= current_user.id %>">
+  <%= render "shared/chat_nav" %>
+
+  <main class="main-container overflow-y-auto flex-1 flex justify-center sm:mx-2">
+    <section class="h-full w-full max-w-xl overflow-y-auto border dark:border-dark-onSurface">
+      <%= tag.div "", class: tool_bar do %>
+        <span class="flex sm:hidden">
+          <i class="bx bx-arrow-back bx-sm text-link" data-action="click->chat--show#redirectBack"></i>
+        </span>
+        <div class="w-10 h-10 ml-3">
+          <%= image_tag @chat.cover, class: "w-full h-full rounded-full" %>
+        </div>
+        <div class="ml-2 flex-1">
+          <div class="flex justify-between w-full">
+            <h4 class="text-txtPrimary font-semibold dark:text-dark-txtPrimary capitalize"><%= @chat.title %></h4>
+          </div>
+          <p class="message text-txtSecondary dark:text-dark-txtSecondary"><%= @chat.members_readable %></p>
+        </div>
+      <% end %>
+
+      <div class="flex items-center justify-center" id="navigation-link" data-chat--show-target="div">
+        <%= turbo_frame_tag "navigation" do %>
+          <% if @pagy.next.present? %>
+            <%= link_to "Older Messages", @next_url, class: "p-2 my-1 text-link dark:text-dark-link", data: { chat__show_target: "older_button" } %>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div id="messages" class="mb-16 flex flex-col-reverse" data-chat--show-target="messages">
+        <%= render @messages, { user: current_user } %>
+      </div>
+
+      <%= render "messages/send_section", { chat: @chat } %>
+    </section>
+  </main>
+
+  <%= render "shared/chat_detail", { chat: @chat } %>
+</div>

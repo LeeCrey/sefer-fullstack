@@ -1,0 +1,35 @@
+<%= content_for :title_section do %>
+  <title>Post Show</title>
+<% end %>
+
+<div class="relative h-full flex flex-col sm:flex-row" data-controller="sidebar">
+  <%= render "shared/nav", { w: "hidden sm:visible", user: nil } %>
+
+  <main class="main-container overflow-y-auto flex-1 sm:mx-2 md:mx-6 pb-16 mt-12">
+    <div class="absolute top-0 w-full max-w-xl p-2 shadow flex justify-start items-center bg-surface dark:bg-dark-surface text-txtPrimary dark:text-dark-txtPrimary" data-controller="application">
+      <span class="bx bx-arrow-back bx-sm p-1" data-action="click->application#redirectBack"></span>
+      <span class="font-semibold ml-1"><%= @post.user %>'s Post</span>
+    </div>
+
+    <section class="w-full max-w-xl">
+      <p class="text-dark-primary m-1"><%= flash[:notice] %></p>
+
+      <%= render @post %>
+
+      <% if @post.comments_count == 0 %>
+        <div class="w-full opacity-40 mt-10 text-center">
+          <h1 class="dark:text-dark-txtPrimary">No comments yet!</h1>
+          <h1 class="dark:text-dark-txtSecondary">Be the first to comment</h1>
+        </div>
+      <% else %>
+        <div class="mt-1 ml-2" id="comment-list">
+          <p class="font-semibold text-txtPrimary dark:text-dark-txtPrimary p-2">Comments</p>
+
+          <%= turbo_frame_tag "comments-page-1", src: root_path(thread_id: @post.id, page: 1) %>
+        </div>
+      <% end %>
+    </section>
+
+    <%= render "posts/comment" %>
+  </main>
+</div>
