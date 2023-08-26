@@ -173,7 +173,7 @@ Basically recommendation algorithm should be fixed.
 
 ## Where to host Rails apps?
 
-* [Railway](https://railway.app) has free tier
+* [Railway](https://railway.app?referralCode=lee_crey_835) has free tier
 * [Render](https://render.com)  has free tier
 * [Fly](https://fly.io) has free tier
 * [Heroku](https://heroku.com) has no free tier
@@ -186,7 +186,7 @@ Basically recommendation algorithm should be fixed.
 
 ## For Redis?
 
-* [Railway](https://railway.app)
+* [Railway](https://railway.app?referralCode=lee_crey_835)
 
 ## What do you recommend?
 
